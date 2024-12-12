@@ -8,6 +8,7 @@ const port = 8000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 app.use('/messages', messagesRouter);
 
 const run = async () => {

@@ -24,7 +24,7 @@ messagesRouter.post("/new_messages", imagesUpload.single('image'),  async (req, 
     const newMessage: Message = {
         message,
         author: nameAuthor,
-        ...(req.file && { image: req.file.filename }),
+       image: req.file? 'images' + req.file.filename : undefined,
     }
 
     try {
