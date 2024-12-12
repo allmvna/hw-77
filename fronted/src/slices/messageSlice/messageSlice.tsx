@@ -4,7 +4,7 @@ import axiosAPI from "../../axiosAPI.ts";
 export interface IMessage {
     author: string;
     message: string;
-    image: File | null ;
+    image: File | null;
 }
 
 interface MessageState {
@@ -19,8 +19,8 @@ const initialState : MessageState = {
     error: false,
 };
 
-export const fetchMessages = createAsyncThunk<IMessage[]>(
-    'message/fetchMessages',
+export const getMessages = createAsyncThunk<IMessage[]>(
+    'message/getMessages',
     async () => {
         const { data } = await axiosAPI.get<IMessage[]>('/messages');
         return data;
@@ -48,15 +48,15 @@ export const messagesSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchMessages.pending, (state) => {
+            .addCase(getMessages.pending, (state) => {
                 state.isLoading = true;
                 state.error = false;
             })
-            .addCase(fetchMessages.fulfilled, (state, action) => {
+            .addCase(getMessages.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.messages = action.payload;
             })
-            .addCase(fetchMessages.rejected, (state) => {
+            .addCase(getMessages.rejected, (state) => {
                 state.isLoading = false;
                 state.error = true;
             })
